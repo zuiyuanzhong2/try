@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch W6P2",
+            "request": "launch",
+            "mainClass": "W6P2",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
