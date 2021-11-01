@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch W8P1",
+            "request": "launch",
+            "mainClass": "W8P1",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W8P1",
+            "request": "launch",
+            "mainClass": "学生管理系统.W8P1",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
             "name": "Launch W6P2",
             "request": "launch",
             "mainClass": "W6P2",
