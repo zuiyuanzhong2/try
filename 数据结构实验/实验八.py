@@ -120,4 +120,5 @@ class Graph(object):
                         index=0
                         flag=True
                         while index<len(Edges) and flag:
-                            if
+                            if Edges[index][2]>self.Arcs[Horizental][Vertical]:
+                                Edges.insert(index,)
