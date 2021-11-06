@@ -109,3 +109,15 @@ class Graph(object):
             while self.Vertices[index].data != Vertex and index < len(self.Vertices):
                 index = index + 1 
             return index
+
+        #将图中的边按权值的升序排列并存储在一个列表中的方法
+        def GetEdge(self,Edges):
+            Horizental=0
+            while Horizental<self.VertexNum:
+                Vertical=Horizental
+                while Vertical<self.VertexNum:
+                    if self.Arcs[Horizental][Vertical]>0 and self.Arcs[Horizental][Vertical]<float("inf"):
+                        index=0
+                        flag=True
+                        while index<len(Edges) and flag:
+                            if
