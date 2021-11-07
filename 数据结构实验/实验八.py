@@ -132,6 +132,27 @@ class Graph(object):
                 Vertical += 1
             Horizental += 1
 
+    def MiniSpanTreeKruskal(self,Edges):
+        flag=[[]for i in range(self.VertexNum)]
+        index=0
+        #初始化顶点标记，其用于判断顶点是否属于同一连接分量
+        while index<self.VertexNum:
+            flag[index]=index
+            index+=1
+        index=0
+        #访问图中的每一条边
+        while index<len(Edges):
+            VertexOne=self.LocateVertex(Edges[index][0])
+            VertexTwo=self.LocateVertex(Edges[index][1])
+            #若边的两个顶点不属于同一连接分量。则该边被保留
+            #并将两个顶点划分到同一连接分量
+            if flag[VertexOne] is not flag [VertexTwo]:
+                FlagOne=flag[VertexOne]
+                FlagTwo=flag[VertexTwo]
+                limit=0
+                while limit<self.VertexNum:
+                    if flag
+
 
 # 主程序
 if __name__ == '__main__':
