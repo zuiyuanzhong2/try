@@ -1,3 +1,81 @@
+class CircularSequenceQueue:
+    # 初始化循环顺序队列的函数
+    def __init__(self):
+        self.MaxQueueSize = 10
+        self.s = [None for x in range(0, self.MaxQueueSize)]
+        self.front = 0
+        self.rear = 0
+    def InitQueue(self,Max):
+        self.MaxQueueSize=Max
+        self.s=[None for x in range(0,self.MaxQueueSize)] 
+        self.front=0
+        self.rear=0
+    #访问某一元素的函数
+    def QueueVisit(self, element):
+        print(element, end=' ')
+    #判断循环队列是否为空的函数
+    def IsEmptyQueue(self):
+        if self.front == self.rear:
+            iQueue = True
+        else:
+            iQueue = False
+        return iQueue
+    #元素入队的函数
+    def EnQueue(self, x):
+        if(self.rear+1) % self.MaxQueueSize != self.front:
+            self.rear = (self.rear+1) % self.MaxQueueSize
+            self.s[self.rear] = x
+        else:
+            print("队列已满，无法进队")
+            return
+    #元素出队的函数
+    def DeQueue(self):
+        if self.IsEmptyQueue():
+            print("队列为空，无法出队")
+            return
+        else:
+            self.front = (self.front+1) % self.MaxQueueSize
+            return self.s[self.front]
+    #依次访问队列中元素的函数
+    def QueueTraverse(self):
+        if self.IsEmptyQueue():
+            print("队列为空，无元素可以访问")
+            return
+        else:
+            if self.front < self.rear:
+                i = self.front+1
+                while i < self.rear:
+                    self.QueueVisit(self.s[i])
+                    i += 1
+                self.QueueVisit(self.s[self.rear])
+            else:
+                i = self.front+1
+                while i < self.MaxQueueSize:
+                    self.QueueVisit(self.s[i])
+                    i += 1
+                i = 0
+                while i <= self.rear:
+                    self.QueueVisit(self.s[i])
+                    i += 1
+
+    #获取队头元素的函数
+    def GetHead(self):
+        if self.IsEmptyQueue():
+            print("队列为空，无法输出队头元素")
+            return
+        else:
+            return self.s[(self.front + 1) % self.MaxQueueSize]
+
+
+    #输出当前队列中元素个数的函数
+    def GetQueueLength(self):
+        if self.IsEmptyQueue():
+            print("队列为空，队列长度为零")
+
+            return
+        else:
+            return (self.rear - self.front + self.MaxQueueSize) % self.MaxQueueSize
+
 class Vertex(object):
     def __init__(self, data):
         self.data = data
@@ -12,7 +90,7 @@ class Graph(object):
         self.ArcNum = 0
         self.VertexNum = 0
 
-    # 以邻接矩阵为存储结构创建无向网的方向
+    # 以邻接矩阵为存储结构创建无向网的方法
     def CreateGraph(self):
         print('请依次输入图中各项点的值，每个顶点以回车间隔：')
         print('并以#作为输入结束符：')
@@ -47,7 +125,7 @@ class Graph(object):
             if self.kind is 1:
                 self.Arcs[VertexOneIndex][VertexTwoIndex] = weight
                 self.Arcs[VertexTwoIndex][VertexOneIndex] = weight
-            self.ArcsNum = self.Arcnum+1
+            self.ArcsNum = self.ArcNum+1
             arc = input('->')
         print('创建成功')
     # 定位顶点在邻接表中的位置方法
@@ -57,6 +135,32 @@ class Graph(object):
         while self.Vertices[index].data != Vertex and index < len(self.Vertices):
             index += 1
         return index
+
+    def BFSTraverse(self):
+        visited=[]
+        index=0
+        Queue=CircularSequenceQueue()
+        Queue.InitQueue(10)
+        while index<self.VertexNum:
+            visited.append('False')
+            index+=1
+        index=0
+        while index<self.VertexNum:
+            if visited[index] is 'False':
+                visited[index]='True'
+                self.VisitVertex(index)
+                Queue.EnQueue(index)
+                while Queue.IsEmptyQueue() is False:
+                    tVertex=Queue.DeQueue()
+                    NextAdjacent=self.GetFirstAdjacentVertex(tVertex)
+                    while NextAdjacent is not None:
+                        if visited[NextAdjacent] is 'False':
+                            visited[NextAdjacent]='True'
+                            self.VisitVertex(NextAdjacent)
+                            Queue.EnQueue(NextAdjacent)
+                        NextAdjacent=self.GetNextAdjancenVertex(tVertex,NextAdjacent)
+            index+=1
+
 
     # Prim算法
     def MiniSpanTreePrim(self, Vertex):
@@ -112,7 +216,7 @@ class Graph(object):
         return index
 
     # 将图中的边按权值的升序排列并存储在一个列表中的方法
-    def GetEdge(self, Edges):
+    def GetEdges(self, Edges):
         Horizental = 0
         while Horizental < self.VertexNum:
             Vertical = Horizental
@@ -151,7 +255,15 @@ class Graph(object):
                 FlagTwo=flag[VertexTwo]
                 limit=0
                 while limit<self.VertexNum:
-                    if flag
+                    if flag[limit] is FlagTwo: 
+                        flag[limit] = FlagOne
+                    limit = limit+1 
+                index = index + 1 
+            else:#否则将该边删除
+                Edges.pop(index) 
+        print('使用 Kruskal 算法构造的最小生成树的边如下:')
+        for item in Edges:
+            print(item)
 
 
 # 主程序
@@ -159,4 +271,12 @@ if __name__ == '__main__':
     # 创建一个联通的无向网
     graph = Graph(1)
     graph.CreateGraph()
+    graph.BFSTraverse()
+    #以下标为 0 的顶点构造最小生成树(Prim 算法)
     graph.MiniSpanTreePrim(0)
+
+    Edges=[]
+    graph.GetEdges(Edges)
+     #构造最小生成树(Kruskal 算法)
+    graph.MiniSpanTreeKruskal(Edges)
+
