@@ -136,30 +136,32 @@ class Graph(object):
             index += 1
         return index
 
+
     def BFSTraverse(self):
         visited=[]
-        index=0
+        h=0
+        BFENum=1
         Queue=CircularSequenceQueue()
         Queue.InitQueue(10)
-        while index<self.VertexNum:
+        while h<self.VertexNum:
             visited.append('False')
-            index+=1
-        index=0
-        while index<self.VertexNum:
-            if visited[index] is 'False':
-                visited[index]='True'
-                self.VisitVertex(index)
-                Queue.EnQueue(index)
-                while Queue.IsEmptyQueue() is False:
-                    tVertex=Queue.DeQueue()
-                    NextAdjacent=self.GetFirstAdjacentVertex(tVertex)
-                    while NextAdjacent is not None:
-                        if visited[NextAdjacent] is 'False':
-                            visited[NextAdjacent]='True'
-                            self.VisitVertex(NextAdjacent)
-                            Queue.EnQueue(NextAdjacent)
-                        NextAdjacent=self.GetNextAdjancenVertex(tVertex,NextAdjacent)
-            index+=1
+            h+=1
+        h=0
+        Queue.EnQueue(0)
+        print(self.Vertices[0].data)
+        visited[0]='True'
+        while Queue.IsEmptyQueue() is False:
+            tVertex=Queue.DeQueue()
+            v = tVertex+1
+            while v < self.VertexNum:
+                if self.Arcs[tVertex][v]!=float("inf") and visited[v]=='False':
+                    print(self.Vertices[v].data)
+                    visited[v]='True'
+                    BFENum+=1
+                    Queue.EnQueue(v)
+                v+=1
+        if BFENum==self.VertexNum:
+            print('该网是连通网')
 
 
     # Prim算法
@@ -271,6 +273,7 @@ if __name__ == '__main__':
     # 创建一个联通的无向网
     graph = Graph(1)
     graph.CreateGraph()
+    #广度优先遍历以及判断是否是连通网
     graph.BFSTraverse()
     #以下标为 0 的顶点构造最小生成树(Prim 算法)
     graph.MiniSpanTreePrim(0)
