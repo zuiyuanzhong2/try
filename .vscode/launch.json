@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch W10P4",
+            "request": "launch",
+            "mainClass": "W10P4",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W10P3",
+            "request": "launch",
+            "mainClass": "W10P3",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W9P1",
+            "request": "launch",
+            "mainClass": "W9P1",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W10P2e2",
+            "request": "launch",
+            "mainClass": "W10P2e2",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W10P2e1",
+            "request": "launch",
+            "mainClass": "W10P2e1",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W10P2",
+            "request": "launch",
+            "mainClass": "W10P2",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
             "name": "Launch W10P1",
             "request": "launch",
             "mainClass": "W10P1",
