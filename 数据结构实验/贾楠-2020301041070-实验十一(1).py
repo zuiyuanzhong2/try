@@ -25,8 +25,8 @@ class BinaryTreeNonRecursive(BinaryTreeNode):
             Root.RightChild = BinaryTreeNode() 
             self.CreateBinaryTree(Root.RightChild)
 
-#先序遍历非递归算法
-    def PreOrderNonRecursive(self, Root):
+#先序遍历非递归算法一（按照实验要求里的另一种算法的思想写成）
+    def PreOrderNonRecursive1(self, Root):
         StackTreeNode = []
         tTreeNode = Root
         StackTreeNode.append(tTreeNode)
@@ -40,6 +40,21 @@ class BinaryTreeNonRecursive(BinaryTreeNode):
             #若tTreeNode有左孩子，也将其入栈
             if tTreeNode.LeftChild != "#"and tTreeNode.LeftChild != None:
                 StackTreeNode.append(tTreeNode.LeftChild)
+
+
+#先序遍历非递归算法二
+    def PreOrderNonRecursive2(self,Root):
+        StackTreeNode=[]
+        tTreeNode=Root
+        while len(StackTreeNode)>0 or tTreeNode is not None:   #空①
+            while tTreeNode is  not None:
+                self.VisitBinaryTreeNode(tTreeNode)
+                StackTreeNode.append(tTreeNode)     #空②
+                tTreeNode=tTreeNode.LeftChild        #空③
+            if len(StackTreeNode)>0:
+                tTreeNode=StackTreeNode.pop()        #空④
+                tTreeNode=tTreeNode.RightChild
+
         
 
     def VisitBinaryTreeNode(self, BinaryTreeNode):
@@ -67,4 +82,7 @@ if __name__ =='__main__':
     btrn.CreateBinaryTree(btnrn)
     print ('对二叉树进行非递归前序遍历:')
     #前序遍历二叉树
-    btrn.PreOrderNonRecursive(btnrn)
+    print ('一、课本上的方式（实验指导书里代码部分）:')
+    btrn.PreOrderNonRecursive2(btnrn)
+    print ('\n二、另一种方法（按照实验要求里的另一种算法思想写的）:')
+    btrn.PreOrderNonRecursive1(btnrn)

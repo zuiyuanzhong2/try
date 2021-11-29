@@ -23,13 +23,10 @@ with open(directory+'randomsequence.txt','a') as wr:
 
 
 #导入模块 time，用来获取当前时间
-#################################################################
 import time
-#################################################################
 #类名称:ListItem
 #类说明:定义顺序表中的一个节点
 #类释义:定义顺序表中的一个节点
-################################################################# 
 class ListItem(object):
     def __init__(self ,key,value):
         self.key = key
@@ -37,16 +34,11 @@ class ListItem(object):
 #类名称:SSequenceList
 #类说明:定义一个顺序表 Array
 #类释义:创建一个顺序表 Array，并对其执行相关操作
-#################################################################
 class SSequenceList(object):
-##################################### 
 #初始化顺序表函数
-##################################### 
     def __init__(self):
         self.SeqList=[] 
-    #####################################
     #创建链表函数
-    ##################################### 
     def CreateSequenceListByInput_Seq(self,seq):
         self.SeqList.append(ListItem(int(0), 0))
         with open('./'+seq+'.txt', 'r') as f:
@@ -55,44 +47,39 @@ class SSequenceList(object):
         for line in data:
             self.SeqList.append(ListItem(int(line),i))
             i=i+1
-    ############################# 
+
     #冒泡排序
-    ############################# 
     def BubbleSort(self):
         SeqListLen = len(self.SeqList)
         for i in range(1,SeqListLen-1):
             for j in range(1,SeqListLen-i):
-                if self.SeqList[j+1].key < self.SeqList[j].key:
-                    self.SeqList[0].key = self.SeqList[j].key
-                    self.SeqList[j].key = self.SeqList[j+1].key
+                if self.SeqList[j+1].key < self.SeqList[j].key:  #空⑤（如果当前记录大于下一个纪录）
+                    self.SeqList[0].key = self.SeqList[j].key    #使用第一个位置作为中转，完成两者的交换
+                    self.SeqList[j].key = self.SeqList[j+1].key  #空⑥（就交换两者的顺序）
                     self.SeqList[j+1].key = self.SeqList[0].key
-    #############################
+    
     #快速排序的一趟分区
-    #############################
+
     def AdjustPartition(self,low,high):
         left=low
         right=high
         self.SeqList[0].key = self.SeqList[left].key
         while left < right:
-            while left < right and  self.SeqList[right].key >= self.SeqList[0].key:
+            while left < right and  self.SeqList[right].key >= self.SeqList[0].key:  #空⑦ 当left<right并且枢轴记录不大于下标为right的记录时
                 right = right-1
             self.SeqList[left].key = self.SeqList[right].key
-            while left < right and self.SeqList[left].key <= self.SeqList[0].key:
+            while left < right and self.SeqList[left].key <= self.SeqList[0].key:    #空⑧ 当left<right并且枢轴记录大于等于下标为left的记录时
                 left = left+1
             self.SeqList[right].key = self.SeqList[left].key
-        self.SeqList[left].key= self.SeqList[0].key
+        self.SeqList[left].key= self.SeqList[0].key      #空⑨  将枢轴记录的关键字存入下标为left的记录中
         return left
-    #############################
     #快速排序
-    ############################# 
     def QuickSort(self,low,high):
         if low<high:
-            pivot = self.AdjustPartition(low,high)
-            self.QuickSort(low,pivot-1)
-            self.QuickSort(pivot+1,high)
-    #################################
+            pivot = self.AdjustPartition(low,high)   #空⑩  先进行一次分区
+            self.QuickSort(low,pivot-1)               #空⑪  分别对其分成的两个分区再进行分区
+            self.QuickSort(pivot+1,high)              #空⑫
     #输出函数
-    #################################
     def PrintOut(self):
         print("***************************************************")
         print("\n(1)对正序序列进行冒泡排序和快速排序所花的时间:")
@@ -102,7 +89,7 @@ class SSequenceList(object):
             print("顺序表 Array 初始化失败") 
         self.CreateSequenceListByInput_Seq('positivesequence') 
         t1=time.time()
-        (○13 ) #调用冒泡排序算法
+        self.BubbleSort() #调用冒泡排序算法
         t2=time.time()
         tm=t2-t1 
         print(' 冒泡排序所花的时间为:',tm)
@@ -113,8 +100,9 @@ class SSequenceList(object):
         self.CreateSequenceListByInput_Seq('positivesequence')
         Len=len(self.SeqList)
         t1=time.time()
-        (○14 ) #调用快速排序算法
-        t2=time.time() tk=t2-t1
+        self.QuickSort(0,len(self.SeqList)-1) #调用快速排序算法
+        t2=time.time() 
+        tk=t2-t1
         print(' 快速排序所花的时间为:',tk) 
         if tm > tk:
             print(' 结论:快速排序所花时间更短')
@@ -127,7 +115,7 @@ class SSequenceList(object):
             print("顺序表 Array 初始化失败")
         self.CreateSequenceListByInput_Seq('invertedsequence')
         t1=time.time()
-        (○13 ) #调用冒泡排序算法
+        self.BubbleSort() #调用冒泡排序算法
         t2=time.time()
         tm=t2-t1
         print(' 冒泡排序所花的时间为:',tm)
@@ -138,7 +126,7 @@ class SSequenceList(object):
         self.CreateSequenceListByInput_Seq('invertedsequence')
         Len=len(self.SeqList)
         t1=time.time()
-        (○14 ) #调用快速排序算法
+        self.QuickSort(0,499) #调用快速排序算法
         t2=time.time()
         tk=t2-t1
 
@@ -154,7 +142,7 @@ class SSequenceList(object):
             print("顺序表 Array 初始化失败")
         self.CreateSequenceListByInput_Seq('randomsequence')
         t1=time.time()
-        (○13 ) #调用冒泡排序算法
+        self.BubbleSort() #调用冒泡排序算法
         t2=time.time()
         tm=t2-t1
         print(' 冒泡排序所花的时间为:',tm)
@@ -165,7 +153,7 @@ class SSequenceList(object):
         self.CreateSequenceListByInput_Seq('randomsequence')
         Len=len(self.SeqList)
         t1=time.time()
-        (○14 ) #调用快速排序算法
+        self.QuickSort(0,499) #调用快速排序算法
         t2=time.time()
         tk=t2-t1
         print(' 快速排序所花的时间为:',tk)
@@ -174,5 +162,5 @@ class SSequenceList(object):
         else:
             print(' 结论:冒泡排序所花时间更短') 
 if __name__ =='__main__':
- Array=SSequenceList()
- Array.PrintOut()
+    Array=SSequenceList()
+    Array.PrintOut()

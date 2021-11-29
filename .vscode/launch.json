@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch W11P3",
+            "request": "launch",
+            "mainClass": "W11P3",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W11P2",
+            "request": "launch",
+            "mainClass": "W11P2",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
+            "name": "Launch W11P1",
+            "request": "launch",
+            "mainClass": "W11P1",
+            "projectName": "JNcode_2436fcea"
+        },
+        {
+            "type": "java",
             "name": "Launch W10P4",
             "request": "launch",
             "mainClass": "W10P4",
